@@ -1,44 +1,65 @@
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CallbacTest {
-    private String generateDate(int addDays, String pattern) {
-        return LocalDate.now().plusDays(addDays).format(DateTimeFormatter.ofPattern(pattern));
+    @BeforeEach
+    void setup() {
+        open("http://localhost:9999");
     }
 
     @Test
-    void orderacardwithdelivery() {
-        open("http://localhost:9999");
-        $("[data-test-id='city'] input").setValue("Пермь");
-        String currentDate = generateDate(4, "dd.MM.yyyy");
-        $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
-        $("[data-test-id=date] input").sendKeys(currentDate);
-        $("[data-test-id='name'] input").setValue("Иванов Захар");
-        $("[data-test-id='phone'] input").setValue("+78982000000");
-        $("[data-test-id='agreement']").click();
-        $("button.button").click();
-        $(".notification__content").shouldBe(Condition.visible, Duration.ofSeconds(15))
-       .shouldHave(Condition.exactText("Встреча успешно забронирована на " + currentDate));
-
+    @DisplayName("Should successful plan and replan meeting")
+    void shouldSuccessfulPlanAndReplanMeeting() {
+        var validUser = GeneratorForTest.Registation.generateUser("ru");
+        var daysToAddForFirstMeeting = 4;
+        var firstMeetingDate = GeneratorForTest.generrateDate(daysToAddForFirstMeeting);
+        var daysToAddForSecondMeeting = 7;
+        var secondMeetingDate = GeneratorForTest.generrateDate(daysToAddForSecondMeeting);
     }
 
+    $("[data-test-id='city'] input").setValue(valid User.getSity());
+
+    $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME),Keys.DELETE);
+
+    $("[data-test-id=date] input").setValue(flastMeetihgDate);
+
+    $("[data-test-id='name'] input").setValue(valIdUser.getName);
+
+    $("[data-test-id='phone'] input").setValue(valioUser.getphone);
+
+    $("[data-test-id='agreement']").click();
+
+    $("button.button").click();
+
+    $(".notification__content").shouldBe(Condition.visible, Duration.ofSeconds(15)).
+    shouldHave(Condition.exactText("Встреча успешно забронирована на "+FirstMeetengDate));
+
+    $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME),Keys.DELETE);
+
+    $("[data-test-id=date] input").setValue(SecondMeetihgDate);
+
+    $(byText("Запланировать")).click();
+
+    $("[data-test-id='replan-notification'] notification__content").
+
+    sholdMave(text ("У вас уже запланирована встреча на другую дату. Перепланировать?")).shouldBe(visible);
+
+    $("[data-test-id='replan-notification'] button").click();
+
+    $("[data-test-id='success-notification'] notification__content").
+
+    sholdMave(text ("Встреча успешно заплпанирована на ")).
+
+    shouldBe(visible);
+
 }
+
+
