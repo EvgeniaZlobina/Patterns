@@ -25,7 +25,7 @@ public class CallbacTest {
         var secondMeetingDate = GeneratorForTest.generrateDate(daysToAddForSecondMeeting);
     }
 
-    $("[data-test-id='city'] input").setValue(valid User.getSity());
+    $("[data-test-id='city'] input").setValue(validUser.getSity());
 
     $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME),Keys.DELETE);
 
