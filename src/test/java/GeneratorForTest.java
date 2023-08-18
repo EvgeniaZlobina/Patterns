@@ -15,7 +15,7 @@ public class GeneratorForTest {
     }
 
     public static String generateCity() {
-        var cities = new String[]{"Пермь", "Киров", "Косторома", "Владимир", "Мурманск", "Ярославль", "Вологда", "Казань", "Уфа", "Ижевск"};
+        var cities = new String[]{"Пермь", "Киров", "Кострома", "Владимир", "Мурманск", "Ярославль", "Вологда", "Казань", "Уфа", "Ижевск"};
         return cities[new Random().nextInt(cities.length)];
     }
 
